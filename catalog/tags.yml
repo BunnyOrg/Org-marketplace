@@ -1,0 +1,13 @@
+
+📄 `catalog/tags.yml`
+```yaml
+workflows:
+  - name: deploy-template.yml
+    tags: [deploy, environment, reusable]
+
+  - name: test-template.yml
+    tags: [testing, ci]
+
+actions:
+  - name: notify-slack
+    tags: [notification, slack, alerting]
