@@ -16,8 +16,7 @@ export default function MarketplaceList({ items }) {
           <h3>{item.name}</h3>
           <p><strong>Type:</strong> {item.type}</p>
           <p><strong>Repo:</strong> {item.repo}</p>
-         // <p>{item.description}</p>
-          <a href={item.url} target="_blank" rel="noopener noreferrer">View on Github</a>
+          <p>{item.description}</p>
         </div>
       ))}
     </div>
