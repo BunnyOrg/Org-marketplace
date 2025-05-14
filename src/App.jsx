@@ -1,8 +1,10 @@
+import LogPanel from './components/LogPanel';
 import React, { useEffect, useState } from 'react';
 import Header from './components/Header';
 import SearchFilterBar from './components/SearchFilterBar';
 import MarketplaceList from './components/MarketplaceList';
 import { fetchRepos, fetchWorkflows, fetchActionsFolder } from './api/github'; 
+import { logger } from './utils/logger';
 
 //const MOCK_DATA = [
 //  { id: 1, name: 'CI Pipeline', type: 'workflow', description: 'CI with Node.js' },
@@ -17,34 +19,44 @@ export default function App() {
 
   useEffect(() => {
     async function loadData() {
-      const repos = await fetchRepos();
-      let collected = [];
+      logger.info('Fetching repositories...');
+      try {
+        const repos = await fetchRepos();
+        logger.info('Fetched ${repo.length} repos');
+        
+        let collected = [];
 
-      for (const repo in repos) {
-        const workflows = await fetchWorkflows(repo.name);
-        const actions = await fetchActionsFolder(repo.name);
+        for (const repo in repos) {
+	  logger.debug('Fetching workflows for: ${repo.name}');
+          const workflows = await fetchWorkflows(repo.name);
 
-        collected.push(
-          ...workflows.map(w => ({
-            id: w.id || '',
-            name: w.name,
-            type: 'workflow',
-            repo: repo.name,
-            path: w.path,
-            url: w.html_url || '',
-          })),
-          ...actions.map(a => ({
-            id: `${repo.name}-${a.name}`,
-            name: a.name,
-            type: 'action',
-            repo: repo.name,
-            path: a.path,
-            url: a.html_url || '',
-          }))
-        );
+	  logger.debug('Fetching actions for: ${repo.name}');
+          const actions = await fetchActionsFolder(repo.name);
+
+          collected.push(
+            ...workflows.map(w => ({
+              name: w.name,
+              type: 'workflow',
+              repo: repo.name,
+              path: w.path,
+              url: w.html_url || '',
+            })),
+            ...actions.map(a => ({
+              id: `${repo.name}-${a.name}`,
+              name: a.name,
+              type: 'action',
+              repo: repo.name,
+              path: a.path,
+              url: a.html_url || '',
+            }))
+          );
+        }
+
+        setItem(collected);
+        logger.info('All data loaded successfully.');
+      } catch (err) {
+        logger.error('Error loading data: ', err);
       }
-
-      setItem(collected)
     }
 
     loadData();
@@ -71,6 +83,7 @@ export default function App() {
         onFilterChange={setTypeFilter}
       />
       <MarketplaceList items={filtered} />
+      <LogPanel />
     </div>
   );
 }
