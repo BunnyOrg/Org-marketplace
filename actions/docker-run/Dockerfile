@@ -2,7 +2,7 @@ FROM docker:20.10
 
 RUN apk add bash
 
-RUN apt inatall gcc -y
+RUN apt install gcc -y
 
 COPY entrypoint.sh /entrypoint.sh
 
