@@ -50,7 +50,7 @@ function renderActions (actionsToRender) {
       
       const desc = document.createElement("p");
       desc.innerText = "";
-      
+      extractDescriptionFromReadme(action, desc);
       card.appendChild(desc);
 
       marketplace.appendChild(card);
@@ -65,7 +65,7 @@ async function loadReadmeAction(action) {
   try {
     Logger.log(`Loading README for: ${action.name}`);
     
-    const readmePath = `https://api.github.com/repos/bunnyorg/Org-marketplace/contents/.github/catalogs/${workflow.name}.md`;
+    const readmePath = `https://api.github.com/repos/bunnyorg/Org-marketplace/contents/actions/${action.name}/README.md`;
     const res = await fetch(readmePath, {
       headers: {
         'Accept': 'application/vnd.github.v3.raw',
@@ -76,10 +76,10 @@ async function loadReadmeAction(action) {
     }
     console.log(res);
     const readmeText = await res.text();
-    readmeContent.innerHTML = `<h2>${workflow.name}</h2><pre>${escapeHTML(readmeText)}</pre>`;
+    readmeContent.innerHTML = `<h2>${action.name}</h2><br>${escapeHTML(readmeText)}<br>`;
     readmeViewer.classList.remove("hidden");
   } catch (error) {
-    Logger.error(`Error loading README for ${workflow.name}:`, error);
+    Logger.error(`Error loading README for ${action.name}:`, error);
     readmeContent.innerHTML = '<p>Error loading README. Please try again later.</p>';
     readmeViewer.classList.remove("hidden");
   }
@@ -89,7 +89,7 @@ async function extractDescriptionFromReadme(action, desc) {
   try {
     Logger.log(`Loading README for: ${action.name}`);
     
-    const readmePath = `https://api.github.com/repos/bunnyorg/Org-marketplace/contents/actions/${workflow.name}/README.md`;
+    const readmePath = `https://api.github.com/repos/bunnyorg/Org-marketplace/contents/actions/${action.name}/README.md`;
     const res = await fetch(readmePath, {
       headers: {
         'Accept': 'application/vnd.github.v3.raw',
@@ -119,7 +119,7 @@ async function extractDescriptionFromReadme(action, desc) {
 
 export function escapeHTML(str) {
   const div = document.createElement("div");
-  div.textContent = marked(str);
+  div.innerHTML = str;
   return div.innerHTML;
 }
 

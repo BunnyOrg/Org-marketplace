@@ -4,9 +4,40 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>GitHub Marketplace Clone</title>
+    <link rel="stylesheet" href="css/style.css">
   </head>
   <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
+  
+    <header>
+      <h1>GitHub Marketplace - Workflows & Actions</h1>
+    </header>
+    
+    <div class="container">
+      <aside class="sidebar">
+        <div class="filter">
+          <h3>Filter</h3>
+          <label><input type="radio" name="filter" checked> All</label>
+          <label><input type="radio" name="filter"> Recent</label>
+          <label><input type="radio" name="filter"> Actions</label>
+          <label><input type="radio" name="filter"> Workflow</label>
+        </div>
+      </aside>
+    
+      <main class="main">
+        <div class="search-bar">
+          <h1>Search for Actions and Workflows</h1>
+          <input type="text" id="searchBox" placeholder="Search ..." />
+          <button type="button">🔍️</button>
+        </div>
+ 
+        <div id="marketplace" class="grid">
+        </div>
+        <section id="readmeViewer" class="hidden">
+          <button id="closeReadme">Close</button>
+          <div id="readmeContent" markdown="1"></div>
+        </section>
+      </main>
+    </div>
+    <script src="/js/app.jsx" type="module"></script>
   </body>
 </html>
