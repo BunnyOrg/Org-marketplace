@@ -1,0 +1,59 @@
+entry: gh-start
+executions:
+  - src:
+      node: gh-start
+      port: exec-on-push
+    dst:
+      node: gh-checkout
+      port: exec
+  - src:
+      node: gh-checkout
+      port: exec
+    dst:
+      node: gh-bunnyorg-compile-v1-0-0-butterfly-monkey-purple
+      port: exec
+  - src:
+      node: gh-bunnyorg-compile-v1-0-0-butterfly-monkey-purple
+      port: exec
+    dst:
+      node: run-v1-coconut-banana-strawberry
+      port: exec
+connections: []
+nodes:
+  - id: gh-start
+    type: gh-start@v1
+    position:
+      x: 100
+      y: 100
+    settings:
+      folded: false
+  - id: gh-checkout
+    type: github.com/actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
+    position:
+      x: 440
+      y: 90
+    settings:
+      folded: false
+  - id: gh-bunnyorg-compile-v1-0-0-butterfly-monkey-purple
+    type: github.com/bunnyorg/compile@24463af8f30674a65fc363edd78180e68eeff56f
+    position:
+      x: 910
+      y: 120
+    inputs:
+      c_file: sample.c
+    settings:
+      folded: false
+  - id: run-v1-coconut-banana-strawberry
+    type: run@v1
+    position:
+      x: 1170
+      y: 380
+    inputs:
+      script: echo $pwd
+    settings:
+      folded: false
+registries:
+  - github.com/peaceiris/actions-gh-pages@v4
+  - github.com/bunnyorg/compile@main
+  - github.com/bunnyorg/compile@v1.0.0
+description: ''
