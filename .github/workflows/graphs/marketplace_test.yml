@@ -1,12 +1,6 @@
 entry: gh-start
 executions:
   - src:
-      node: gh-start
-      port: exec-on-push
-    dst:
-      node: gh-checkout
-      port: exec
-  - src:
       node: gh-checkout
       port: exec
     dst:
@@ -17,6 +11,12 @@ executions:
       port: exec
     dst:
       node: run-v1-coconut-banana-strawberry
+      port: exec
+  - src:
+      node: gh-start
+      port: exec-on-workflow_dispatch
+    dst:
+      node: gh-checkout
       port: exec
 connections: []
 nodes:
