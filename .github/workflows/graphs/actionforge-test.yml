@@ -1,0 +1,87 @@
+entry: gh-start
+executions:
+  - src:
+      node: gh-start
+      port: exec-on-workflow_dispatch
+    dst:
+      node: gh-checkout
+      port: exec
+  - src:
+      node: gh-checkout
+      port: exec
+    dst:
+      node: gh-actions-setup-node-elephant-snake-lion
+      port: exec
+  - src:
+      node: gh-actions-setup-node-elephant-snake-lion
+      port: exec
+    dst:
+      node: run-v1-tiger-gold-zebra
+      port: exec
+  - src:
+      node: run-v1-tiger-gold-zebra
+      port: exec-success
+    dst:
+      node: run-v1-watermelon-giraffe-penguin
+      port: exec
+  - src:
+      node: run-v1-watermelon-giraffe-penguin
+      port: exec-success
+    dst:
+      node: gh-actions-upload-artifact-gold-pink-grape
+      port: exec
+connections: []
+nodes:
+  - id: gh-start
+    type: gh-start@v1
+    position:
+      x: 100
+      y: 100
+    settings:
+      folded: false
+  - id: gh-checkout
+    type: github.com/actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
+    position:
+      x: 450
+      y: 100
+    settings:
+      folded: false
+  - id: gh-actions-setup-node-elephant-snake-lion
+    type: github.com/actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+    position:
+      x: 870
+      y: 120
+    inputs:
+      node-version: '20'
+    settings:
+      folded: false
+  - id: run-v1-tiger-gold-zebra
+    type: run@v1
+    position:
+      x: 1300
+      y: 120
+    inputs:
+      script: npm install
+    settings:
+      folded: false
+  - id: run-v1-watermelon-giraffe-penguin
+    type: run@v1
+    position:
+      x: 1650
+      y: 120
+    inputs:
+      script: npm run build
+    settings:
+      folded: false
+  - id: gh-actions-upload-artifact-gold-pink-grape
+    type: >-
+      github.com/actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+    position:
+      x: 2010
+      y: 120
+    inputs:
+      path: ${{ github.workspace }}
+    settings:
+      folded: false
+registries: []
+description: ''
