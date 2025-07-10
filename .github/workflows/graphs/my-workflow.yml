@@ -79,7 +79,7 @@ nodes:
       x: 1790
       y: 90
     inputs:
-      script: npm run dev
+      script: npm run deploy
     settings:
       folded: false
 registries: []
