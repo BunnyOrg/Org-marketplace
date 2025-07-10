@@ -28,7 +28,7 @@ executions:
       node: run-v1-parrot-panda-tiger
       port: exec-success
     dst:
-      node: run-v1-plum-giraffe-giraffe
+      node: gh-actions-upload-artifact-koala-penguin-butterfly
       port: exec
 connections: []
 nodes:
@@ -73,13 +73,14 @@ nodes:
       script: npm run build
     settings:
       folded: false
-  - id: run-v1-plum-giraffe-giraffe
-    type: run@v1
+  - id: gh-actions-upload-artifact-koala-penguin-butterfly
+    type: >-
+      github.com/actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
     position:
       x: 1790
       y: 90
     inputs:
-      script: npm run deploy
+      path: ${{ github.workspace }}
     settings:
       folded: false
 registries: []
