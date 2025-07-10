@@ -1,0 +1,86 @@
+entry: gh-start
+executions:
+  - src:
+      node: gh-start
+      port: exec-on-workflow_dispatch
+    dst:
+      node: gh-checkout
+      port: exec
+  - src:
+      node: gh-checkout
+      port: exec
+    dst:
+      node: gh-actions-setup-node-snake-squirrel-shark
+      port: exec
+  - src:
+      node: gh-actions-setup-node-snake-squirrel-shark
+      port: exec
+    dst:
+      node: run-v1-plum-rabbit-grape
+      port: exec
+  - src:
+      node: run-v1-plum-rabbit-grape
+      port: exec-success
+    dst:
+      node: run-v1-parrot-panda-tiger
+      port: exec
+  - src:
+      node: run-v1-parrot-panda-tiger
+      port: exec-success
+    dst:
+      node: run-v1-plum-giraffe-giraffe
+      port: exec
+connections: []
+nodes:
+  - id: gh-start
+    type: gh-start@v1
+    position:
+      x: -160
+      y: 60
+    settings:
+      folded: false
+  - id: gh-checkout
+    type: github.com/actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
+    position:
+      x: 200
+      y: 70
+    settings:
+      folded: false
+  - id: gh-actions-setup-node-snake-squirrel-shark
+    type: github.com/actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+    position:
+      x: 700
+      y: 90
+    inputs:
+      node-version: '20'
+    settings:
+      folded: false
+  - id: run-v1-plum-rabbit-grape
+    type: run@v1
+    position:
+      x: 1140
+      y: 90
+    inputs:
+      script: npm  install
+    settings:
+      folded: false
+  - id: run-v1-parrot-panda-tiger
+    type: run@v1
+    position:
+      x: 1470
+      y: 90
+    inputs:
+      script: npm run build
+    settings:
+      folded: false
+  - id: run-v1-plum-giraffe-giraffe
+    type: run@v1
+    position:
+      x: 1790
+      y: 90
+    inputs:
+      script: npm run test
+    settings:
+      folded: false
+registries: []
+description: ''
