@@ -54,6 +54,8 @@ jobs:
           name: autocode-package
           path: ${{ steps.autocode-job.outputs.generated_code_path }}
 
+```
+
 ## How it works
 1. The action takes in a MATLAB model and ROM file as inputs.
 2. It invokes an Autocode generation toolchain (e.g., MATLAB Coder, Embedded Coder, or your internal script).
